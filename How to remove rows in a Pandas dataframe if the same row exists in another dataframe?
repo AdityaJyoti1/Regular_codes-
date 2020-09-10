@@ -1,0 +1,9 @@
+import pandas as pd
+a = pd.DataFrame({0:[1,2,3],1:[10,20,30]})
+b = pd.DataFrame({0:[0,1,2,3],1:[0,1,20,3]})
+
+a_index = a.set_index([0,1]).index
+b_index = b.set_index([0,1]).index
+mask = ~a_index.isin(b_index)
+result = a.loc[mask]
+print(result)
