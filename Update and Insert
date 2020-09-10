@@ -1,0 +1,32 @@
+
+PPID PUSH
+#Pull data from SQL server
+connStr = ('DRIVER={SQL Server Native Client 11.0};SERVER=**********;DATABASE=**********;UID=Python_User;PWD=Python_User')
+conn = pyodbc.connect(connStr)
+cursor = conn.cursor()
+
+
+#Insert
+for index,row in df.iterrows():
+    qry = "INSERT INTO [dbo].[tbl_Test]([Activity_Id],[Final_Log], [PPID_commodity],[SatcFlag],[ServiceTag])values (?,?,?,?,?)"
+    param_values = row['Id'],row['Final_Log'],row['PPID_check'],row['PPID_result'],row['service_tag']
+    cursor.execute(qry, param_values)
+    cursor.commit()
+cursor.close()
+
+
+#Update
+for index,row in df.iterrows():
+    qry = '''UPDATE dbo.Tbl_Dispatch_Activity
+        SET [DRT_Commodity] = ?,[Pattern_Type] = ?, [DRT_Diagnostics] = ?, [VDI_String] = ?,[Accidental_Check] = ?,
+        [CIDAR_String] = ?, [Smart_ID_String] = ?
+        WHERE [Activity_Id] =?
+        '''
+        
+        
+   
+    param_values = [row['Commodity'],row['Pattern_Type'],row['Diagnostics'],row['VDI_Check'],
+                    row['Accidental_Check'],row['Cidar_Check'],row['Smart_Check'],row['Id']]
+    cursor.execute(qry, param_values)
+    cursor.commit()
+cursor.close()
