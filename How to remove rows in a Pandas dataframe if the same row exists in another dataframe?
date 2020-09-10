@@ -7,3 +7,4 @@ b_index = b.set_index([0,1]).index
 mask = ~a_index.isin(b_index)
 result = a.loc[mask]
 print(result)
+https://stackoverflow.com/questions/54219055/how-to-remove-rows-from-pandas-dataframe-if-the-same-row-exists-in-another-dataf
