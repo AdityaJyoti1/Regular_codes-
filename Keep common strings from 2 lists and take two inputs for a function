@@ -43,4 +43,5 @@ print(common_member(a, b))
 Two inputs for one function
 segment match is the name of function.
 Timecol and Responsecol are the columns of dataframe on which this function is applied.
-df['NewCol'] = df.apply(segmentMatch, args=(df['TimeCol'], df['ResponseCol']), axis=1)
+
+df['NewCol'] = df.apply(lambda x: segmentMatch(x['TimeCol'], x['ResponseCol']), axis=1)
