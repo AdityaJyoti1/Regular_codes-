@@ -53,3 +53,14 @@ def date_parser(txt):
             
     a = list(dict.fromkeys(a)) 
     session_i_d="+".join(a)
+    
+    
+    
+    
+#To create ensemble model
+#lr is logistic regression model
+#rf in random forest
+#gb is gradient bossting
+from sklearn.ensemble import VotingClassifier
+model = VotingClassifier(estimators=[('lr', model1),('rf', model2),('gb', model3)], voting='hard')
+model.fit(X_train,y_train)
