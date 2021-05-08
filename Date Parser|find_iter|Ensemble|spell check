@@ -55,6 +55,66 @@ def date_parser(txt):
     session_i_d="+".join(a)
     
     
+def get_soundex(token):
+    # first letter of input is always the first letter of soundex
+    # create a dictionary which maps letters to respective soundex codes. Vowels and 'H', 'W' and 'Y' will be represented by '.'
+    
+    token = token.upper()
+
+    soundex = ""
+    
+    
+    soundex += token[0]
+    
+    dictionary = {"BFPV": "1", "CGJKQSXZ":"2", "DT":"3", "L":"4", "MN":"5", "R":"6", "AEIOUHWY":"."}
+
+    for char in token[1:]:
+        for key in dictionary.keys():
+            if char in key:
+                code = dictionary[key]
+                if code != soundex[-1]:
+                    soundex += code
+
+    
+    soundex = soundex.replace(".", "")
+    
+    
+    soundex = soundex[:4].ljust(4, "0")
+        
+    return soundex
+
+
+
+#################################################################################################################
+
+def spell_corrector_cidar(text):
+
+    text = text.lower()
+    correct_spelling = ['cidar','customer','induced' ]
+    text_list = word_tokenize(text)
+
+    text_soundex_list=[]
+    for i in text_list:
+        text_soundex_list.append(get_soundex(i))
+    
+    correct_spelling_list=[]
+    for i in correct_spelling:
+        correct_spelling_list.append(get_soundex(i))
+
+    for j in range(len(text_list)):
+        if text_soundex_list[j] == correct_spelling_list[0]:
+            text_list[j] = correct_spelling[0]
+        elif text_soundex_list[j] == correct_spelling_list[1]:
+            text_list[j] = correct_spelling[1]
+        elif text_soundex_list[j] == correct_spelling_list[2]:
+            text_list[j] = correct_spelling[2]
+
+    correct_text = ' '.join(text_list)
+
+    return correct_text
+
+df['Cidar_Log'] = df['Final_Log'].apply(spell_corrector_cidar)
+*****************************************************************************************************************
     
     
 #To create ensemble model
