@@ -1,0 +1,55 @@
+def date_parser(txt):
+    '''
+    this function takes in dates of two formats:- day of week month day hh:mm:ss year & year-month-day hh:mm:ss and return formatted
+    date_time_str variable in a standard format yyyy-mm-dd hh:mm:ss cst. in case time format is not present in date_fmt_list the function
+    returns string 'no-valid-frmt' and is appended in inc_date_fmt list.
+
+    Parameters
+    ----------
+    txt: string 
+
+    Returns
+    ----------
+    ' yyyy-mm-dd hh:mm:ss cst'/'no-valid-frmt': string
+
+    '''
+    
+    inc_date_fmt = []
+    date_fmt_list = ['%a %b %d %H:%M:%S %Y', '%Y-%m-%d %H:%M:%S']
+    exc_list=[]
+    
+    for fmt in date_fmt_list:
+        try:
+            date_time = datetime.strptime(txt, fmt)
+            date_time_str = str(date_time.year) + '-' + str(date_time.month) + '-' + str(date_time.day) + ' ' + str(date_time.hour) + ':' + str(date_time.minute) + ':' + str(date_time.second) + ' cst'
+            
+        except Exception:
+            exc_list.append(1)
+            
+    
+    if len(exc_list) == len(date_fmt_list)-1:
+        return date_time_str
+    elif len(exc_list) == len(date_fmt_list):
+        inc_date_fmt.append(txt)
+        return 'no-valid-frmt'
+        
+  
+  
+  
+  
+##     Fetch everything between begin and endguided solution.
+#     finditer is used to make sure that it happens in a sequential manner.
+#     Count is basically the total number of GR is a particular caselog.  
+       x=re.finditer(r'(#begin.*?#end)|(#begin.*?#end)',text)
+    for items in x:
+        count+=1
+        session_id=re.findall(r'(?<=sess:).*?(?=[|.])',items.group())
+        session_id=list(dict.fromkeys(session_id)) 
+        
+        if len(session_id)==0:
+            a.append('na')
+        else:
+            a.append("|".join(session_id))
+            
+    a = list(dict.fromkeys(a)) 
+    session_i_d="+".join(a)
