@@ -1,0 +1,3 @@
+pip --trusted-host=pypi.python.org --trusted-host=pypi.org --trusted-host=files.pythonhosted.org install <some_package>
+
+https://stackoverflow.com/questions/55021270/could-not-find-a-version-that-satisfies-the-requirement-flask-from-versions
