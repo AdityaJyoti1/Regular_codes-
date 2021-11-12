@@ -1,0 +1,9 @@
+import pandas as pd
+import numpy as np
+import string
+
+columns=list(string.ascii_uppercase)
+df = pd.DataFrame(np.random.randn(10,26), columns=columns)
+cols = df.columns[10:21]
+cols2 = df.columns[-1:]
+df[cols | cols2]
