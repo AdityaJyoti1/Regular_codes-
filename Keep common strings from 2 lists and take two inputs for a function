@@ -45,3 +45,24 @@ segment match is the name of function.
 Timecol and Responsecol are the columns of dataframe on which this function is applied.
 
 df['NewCol'] = df.apply(lambda x: segmentMatch(x['TimeCol'], x['ResponseCol']), axis=1)
+
+
+
+
+#Three inputs three outputs
+
+import pandas as pd
+
+def three_inputs_three_outputs(input1, input2, input3):
+    output1 = input1 + input2
+    output2 = input1 - input3
+    output3 = input2 * input3
+    return output1, output2, output3
+
+# Create a dataframe with three columns of input data
+df = pd.DataFrame({'input1': [1, 2, 3, 4],
+                   'input2': [10, 20, 30, 40],
+                   'input3': [100, 200, 300, 400]})
+
+# Apply the function to each row of the dataframe and store the result in three new columns
+df[['output1', 'output2', 'output3']] = df.apply(lambda row: three_inputs_three_outputs(row['input1'], row['input2'], row['input3']), axis=1, result_type='expand')
