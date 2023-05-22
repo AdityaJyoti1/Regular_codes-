@@ -1,0 +1,18 @@
+###spark to hadoop
+
+hdfs_path = hdfs_location_wo_slash
+table_name = 'coe_hsh.'+eid+'_dc_cnp_cp_yearly_top50_factors_'+lastmon_yr
+df_temp2.drop('index',axis=1,inplace=True)
+Final=spark.createDataFrame(df_temp2)
+
+spark.sql('drop table if exists '+ table_name)
+try:
+    Final.write.parquet(hdfs_location_wo_slash)
+except Py4JJavaError as e:
+    pass
+    print(e)
+spark.sql(f"CREATE TABLE {table_name} USING PARQUET LOCATION '{hdfs_path}'")
+
+
+
+
